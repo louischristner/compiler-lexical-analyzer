@@ -3,7 +3,8 @@ CC		=	g++
 NAME	=	./lexical_analyzer
 
 SRC		=	main.cpp					\
-			src/lexical_analyzer.cpp
+			src/lexical_analyzer.cpp	\
+			src/token_analyzers.cpp
 
 OBJ		=	$(SRC:.cpp=.o)
 

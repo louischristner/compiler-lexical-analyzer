@@ -3,7 +3,9 @@ CC		=	g++
 NAME	=	tests
 
 SRC		=	lexical_analyzer_tests.cpp	\
-			../src/lexical_analyzer.cpp
+			specific_analyzer_tests.cpp	\
+			../src/lexical_analyzer.cpp	\
+			../src/token_analyzers.cpp
 
 OBJ		=	$(SRC:.cpp=.o)
 
