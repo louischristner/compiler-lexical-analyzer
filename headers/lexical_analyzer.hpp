@@ -1,7 +1,7 @@
 #ifndef LEXICAL_ANALYZER_HPP_
 #define LEXICAL_ANALYZER_HPP_
 
-#include <list>
+#include <vector>
 #include <string>
 
 struct Token {
@@ -10,7 +10,7 @@ struct Token {
 };
 
 struct Scanner {
-    std::list<Token> tokens;
+    std::vector<Token> tokens;
 };
 
 void lexical_analyzer(const std::string &input, Scanner &);

@@ -2,17 +2,18 @@
 
 #include "headers/lexical_analyzer.hpp"
 
-int main(void)
+int main(int ac, char **av)
 {
     Scanner scanner;
+    std::string input = "";
 
-    lexical_analyzer("", scanner);
+    if (ac > 1) input = av[1];
 
-    while (scanner.tokens.size() > 0) {
-        Token token = scanner.tokens.front();
+    lexical_analyzer(input, scanner);
 
+    for (std::size_t index = 0; index < scanner.tokens.size(); index++) {
+        Token token = scanner.tokens[index];
         std::cout << "<" << token.name << "," << token.value << ">\n";
-        scanner.tokens.pop_front();
     }
 
     return 0;
