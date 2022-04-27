@@ -3,7 +3,7 @@
 #include "../headers/lexical_analyzer.hpp"
 #include "../headers/exceptions/LexicalErrorException.hpp"
 
-Test(lexical_analyzer_tests, test_minus_zero)
+Test(lexical_analyzer_test, test_minus_zero)
 {
     Scanner scanner;
 
