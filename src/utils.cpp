@@ -1,11 +1,24 @@
-#include "../headers/lexical_analyzer.hpp"
 #include <cstring>
+#include <algorithm>
 
-bool isKeyword(const std::string input) {
-    if (std::strcmp(input.c_str(), "if") == 0 || std::strcmp(input.c_str(), "IF") == 0 ||
-        std::strcmp(input.c_str(), "else") == 0 || std::strcmp(input.c_str(), "ELSE") == 0 ||
-        std::strcmp(input.c_str(), "while") == 0 || std::strcmp(input.c_str(), "WHILE") == 0 ||
-        std::strcmp(input.c_str(), "return") == 0 || std::strcmp(input.c_str(), "RETURN") == 0)
-            return true;
-    return false;
+#include "../headers/lexical_analyzer.hpp"
+
+bool isKeyword(const std::string input)
+{
+    return (
+        input == "if" || input == "IF" ||
+        input == "else" || input == "ELSE" ||
+        input == "while" || input == "WHILE" ||
+        input == "return" || input == "RETURN"
+    );
+}
+
+std::string str_transform(const std::string &str, int (*transform_func)(int v))
+{
+    std::string result = str;
+
+    std::transform(result.begin(), result.end(), result.begin(),
+        [transform_func](const char &c){ return transform_func(c); });
+
+    return result;
 }

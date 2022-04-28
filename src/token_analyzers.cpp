@@ -9,16 +9,15 @@ bool vtype_analyzer(const std::string &input, std::size_t &index, Scanner &scann
 
     for (; tmpIdx < input.length() && isalpha(input[tmpIdx]); tmpIdx++)
         tmpString.push_back(input[tmpIdx]);
-    
+
     for (int i = 0; i < 4; i++) {
         if (vtype[i] == tmpString) {
             index = tmpIdx;
-            Token newToken = {"VTYPE", vtype[i]};
+            Token newToken = {"VTYPE", str_transform(vtype[i], std::tolower)};
             scanner.tokens.push_back(newToken);
             return true;
         }
     }
-            std::cout << tmpString << std::endl;
 
     return false;
 }
@@ -58,7 +57,6 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
     // set starting/ending idx of string's value between symbol '"'
     std::size_t idxStringBegin(index);
     std::size_t idxStringEnd(0);
-    // std::size_t tmpIndex = index;
 
     if (input.at(std::size_t(idxStringBegin)) == '"') {
         idxStringBegin += 1;
@@ -67,7 +65,7 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
         for (std::size_t i = idxStringBegin; i < input.length(); i++)
             if (input[i] == '"')
                 idxStringEnd = i;
- 
+
 
         for (std::size_t b = idxStringBegin; b < idxStringEnd;) {
             c = input[b];
@@ -79,7 +77,7 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
     } else {
         return false;
     }
-    
+
     // Incrementing index in order to parse for the next symbol in the main loop
     index = idxStringEnd + 1;
 
@@ -125,12 +123,7 @@ bool keyword_analyzer(const std::string &input, std::size_t &index, Scanner &sca
 
     if (isKeyword(tmpString)) {
         index = tmpIdx;
-        index++;
-        std::string tmpString2;
-        for (int i = 0; i < tmpString.length(); i++) {
-            tmpString2.push_back((std::toupper(tmpString[i])));
-        }
-        Token newToken = {tmpString2, ""};
+        Token newToken = {str_transform(tmpString, std::toupper), ""};
         scanner.tokens.push_back(newToken);
     } else
         return false;
@@ -168,7 +161,7 @@ bool assignment_analyzer(const std::string &input, std::size_t &index, Scanner &
 bool comparison_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     std::string substr;
-    std::string operations[] = { "<", ">", "==", "!=", "<=", ">=" };
+    std::string operations[] = { "==", "!=", "<=", ">=", "<", ">" };
 
     for (const std::string &operation : operations) {
         substr = input.substr(index, operation.size());
