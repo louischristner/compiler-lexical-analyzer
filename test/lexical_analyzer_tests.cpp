@@ -151,7 +151,7 @@ Test(lexical_analyzer_test, test_main_func_1)
 {
     Scanner scanner;
 
-    lexical_analyzer("int main(){char if123=\"1\";int 0a=a+-1;return -0;}", scanner);
+    lexical_analyzer("int func(int a) { return 0; }", scanner);
 
     cr_assert(scanner.tokens.size() > 0);
 
