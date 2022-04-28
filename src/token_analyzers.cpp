@@ -1,4 +1,5 @@
 #include "../headers/lexical_analyzer.hpp"
+#include "../headers/utils.hpp"
 
 bool vtype_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
@@ -84,6 +85,24 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
 
 bool identifier_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    std::size_t substr_len = 0;
+    std::size_t cpy_index = index;
+    std::string substr;
+
+    if (!isalpha(input[index]))
+        return false;
+
+    for (; isalnum(input[cpy_index]); cpy_index++, substr_len++);
+
+    if (substr_len > 0) {
+        substr = input.substr(index, substr_len);
+        if (isKeyword(substr))
+            return false;
+        scanner.tokens.push_back({ "ID", substr });
+        index = cpy_index;
+        return true;
+    }
+
     return false;
 }
 
