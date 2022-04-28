@@ -3,6 +3,23 @@
 
 bool vtype_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    std::string tmpString;
+    std::string vtype[] = {"int", "INT", "char", "CHAR"};
+    std::size_t tmpIdx = index;
+
+    for (; tmpIdx < input.length() && isalpha(input[tmpIdx]); tmpIdx++)
+        tmpString.push_back(input[tmpIdx]);
+    
+    for (int i = 0; i < 4; i++) {
+        if (vtype[i] == tmpString) {
+            index = tmpIdx;
+            Token newToken = {"VTYPE", vtype[i]};
+            scanner.tokens.push_back(newToken);
+            return true;
+        }
+    }
+            std::cout << tmpString << std::endl;
+
     return false;
 }
 
@@ -113,6 +130,7 @@ bool keyword_analyzer(const std::string &input, std::size_t &index, Scanner &sca
         scanner.tokens.push_back(newToken);
     } else
         return false;
+
     return true;
 }
 
@@ -133,6 +151,13 @@ bool arithmetic_analyzer(const std::string &input, std::size_t &index, Scanner &
 
 bool assignment_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    if (input[index] == '=') {
+        Token newToken = {"ASSIGN", ""};
+        scanner.tokens.push_back(newToken);
+        index++;
+        return true;
+    }
+
     return false;
 }
 
@@ -155,6 +180,13 @@ bool comparison_analyzer(const std::string &input, std::size_t &index, Scanner &
 
 bool semi_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    if (input[index] == ';') {
+        Token newToken = {"SEMI", ""};
+        scanner.tokens.push_back(newToken);
+        index++;
+        return true;
+    }
+
     return false;
 }
 
@@ -176,6 +208,18 @@ bool brace_analyzer(const std::string &input, std::size_t &index, Scanner &scann
 
 bool paren_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    if (input[index] == ')') {
+        Token newToken = {"RPAREN", ""};
+        scanner.tokens.push_back(newToken);
+        index++;
+        return true;
+    } else if (input[index] == '(') {
+        Token newToken = {"LPAREN", ""};
+        scanner.tokens.push_back(newToken);
+        index++;
+        return true;
+    }
+
     return false;
 }
 
