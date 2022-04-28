@@ -9,6 +9,8 @@ void lexical_analyzer(const std::string &input, Scanner &scanner)
         std::size_t &,
         Scanner &
     ) = {
+        vtype_analyzer,
+        integer_analyzer,
         string_analyzer,
         identifier_analyzer,
         keyword_analyzer,
