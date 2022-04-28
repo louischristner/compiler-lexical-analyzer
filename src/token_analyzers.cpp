@@ -1,4 +1,5 @@
 #include "../headers/lexical_analyzer.hpp"
+#include "../headers/utils.hpp"
 
 bool vtype_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
@@ -11,7 +12,6 @@ bool integer_analyzer(const std::string &input, std::size_t &index, Scanner &sca
     std::size_t cpy_index = index;
     std::string substr;
 
-    std::cout << "bite molle" << std::endl;
     if (input[cpy_index] == '-') {
         // check if previous element is an ID or an INTEGER
         // if it is true then - is an OP
@@ -33,7 +33,6 @@ bool integer_analyzer(const std::string &input, std::size_t &index, Scanner &sca
         return true;
     }
 
-    std::cout << "bite dur" << std::endl;
     return false;
 }
 
@@ -43,8 +42,6 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
     std::size_t idxStringBegin(index);
     std::size_t idxStringEnd(0);
     // std::size_t tmpIndex = index;
-
-    std::cout << input << std::endl;
 
     if (input.at(std::size_t(idxStringBegin)) == '"') {
         idxStringBegin += 1;
@@ -62,6 +59,8 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
             else
                 return false;
         }
+    } else {
+        return false;
     }
     
     // Incrementing index in order to parse for the next symbol in the main loop
@@ -80,8 +79,22 @@ bool identifier_analyzer(const std::string &input, std::size_t &index, Scanner &
 
 bool keyword_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    std::string tmpString;
+    std::size_t tmpIdx = index;
 
+    if (isalpha(input[tmpIdx]))
+        while (isalpha(input[tmpIdx]) && tmpIdx < input.length()) {
+            tmpString.push_back(input[tmpIdx]);
+            tmpIdx++;
+        }
 
+    if (isKeyword(tmpString)) {
+        index = tmpIdx;
+        index++;
+        Token newToken = {"KEYWORD", tmpString};
+        scanner.tokens.push_back(newToken);
+    } else
+        return false;
     return true;
 }
 
