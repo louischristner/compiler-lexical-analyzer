@@ -195,9 +195,9 @@ bool brace_analyzer(const std::string &input, std::size_t &index, Scanner &scann
     char symbols[] = { '{', '}' };
     const std::string tokenNames[] = { "LBRACE", "RBRACE" };
 
-    for (std::size_t index = 0; index < 2; index++) {
-        if (symbols[index] == input[index]) {
-            scanner.tokens.push_back({ tokenNames[index], "" });
+    for (std::size_t i = 0; i < 2; i++) {
+        if (symbols[i] == input[index]) {
+            scanner.tokens.push_back({ tokenNames[i], "" });
             index += 1;
             return true;
         }
