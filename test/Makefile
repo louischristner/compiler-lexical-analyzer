@@ -5,7 +5,8 @@ NAME	=	tests
 SRC		=	lexical_analyzer_tests.cpp	\
 			specific_analyzer_tests.cpp	\
 			../src/lexical_analyzer.cpp	\
-			../src/token_analyzers.cpp
+			../src/token_analyzers.cpp	\
+			../src/utils.cpp
 
 OBJ		=	$(SRC:.cpp=.o)
 
