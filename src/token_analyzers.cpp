@@ -113,6 +113,16 @@ bool keyword_analyzer(const std::string &input, std::size_t &index, Scanner &sca
 
 bool arithmetic_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    char operations[] = { '+', '-', '*', '/' };
+
+    for (const char &operation : operations) {
+        if (operation == input[index]) {
+            scanner.tokens.push_back({ "OP", std::string(1, operation) });
+            index += 1;
+            return true;
+        }
+    }
+
     return false;
 }
 
