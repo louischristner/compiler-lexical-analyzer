@@ -22,9 +22,12 @@ void lexical_analyzer(const std::string &input, Scanner &scanner)
     };
 
     for (std::size_t index = 0; index < input.size(); tokenFound = false) {
-        for (auto &func_ptr : func_ptrs)
+        for (auto &func_ptr : func_ptrs) {
             if ((tokenFound = func_ptr(input, index, scanner)))
                 break;
+            if (index >= input.size())
+                break;
+        }
 
         if (!tokenFound) {
             throw LexicalErrorException("Error");
