@@ -3,6 +3,23 @@
 
 bool vtype_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    std::string tmpString;
+    std::string vtype[] = {"int", "INT", "char", "CHAR"};
+    std::size_t tmpIdx = index;
+
+    for (; tmpIdx < input.length() && isalpha(input[tmpIdx]); tmpIdx++)
+        tmpString.push_back(input[tmpIdx]);
+    
+    for (int i = 0; i < 4; i++) {
+        if (vtype[i] == tmpString) {
+            index = tmpIdx;
+            Token newToken = {"VTYPE", vtype[i]};
+            scanner.tokens.push_back(newToken);
+            return true;
+        }
+    }
+            std::cout << tmpString << std::endl;
+
     return false;
 }
 
@@ -12,7 +29,6 @@ bool integer_analyzer(const std::string &input, std::size_t &index, Scanner &sca
     std::size_t cpy_index = index;
     std::string substr;
 
-    std::cout << "bite molle" << std::endl;
     if (input[cpy_index] == '-') {
         // check if previous element is an ID or an INTEGER
         // if it is true then - is an OP
@@ -34,7 +50,6 @@ bool integer_analyzer(const std::string &input, std::size_t &index, Scanner &sca
         return true;
     }
 
-    std::cout << "bite dur" << std::endl;
     return false;
 }
 
@@ -44,8 +59,6 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
     std::size_t idxStringBegin(index);
     std::size_t idxStringEnd(0);
     // std::size_t tmpIndex = index;
-
-    std::cout << input << std::endl;
 
     if (input.at(std::size_t(idxStringBegin)) == '"') {
         idxStringBegin += 1;
@@ -63,6 +76,8 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
             else
                 return false;
         }
+    } else {
+        return false;
     }
     
     // Incrementing index in order to parse for the next symbol in the main loop
@@ -99,7 +114,26 @@ bool identifier_analyzer(const std::string &input, std::size_t &index, Scanner &
 
 bool keyword_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    std::string tmpString;
+    std::size_t tmpIdx = index;
 
+    if (isalpha(input[tmpIdx]))
+        while (isalpha(input[tmpIdx]) && tmpIdx < input.length()) {
+            tmpString.push_back(input[tmpIdx]);
+            tmpIdx++;
+        }
+
+    if (isKeyword(tmpString)) {
+        index = tmpIdx;
+        index++;
+        std::string tmpString2;
+        for (int i = 0; i < tmpString.length(); i++) {
+            tmpString2.push_back((std::toupper(tmpString[i])));
+        }
+        Token newToken = {tmpString2, ""};
+        scanner.tokens.push_back(newToken);
+    } else
+        return false;
 
     return true;
 }
@@ -121,6 +155,13 @@ bool arithmetic_analyzer(const std::string &input, std::size_t &index, Scanner &
 
 bool assignment_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    if (input[index] == '=') {
+        Token newToken = {"ASSIGN", ""};
+        scanner.tokens.push_back(newToken);
+        index++;
+        return true;
+    }
+
     return false;
 }
 
@@ -143,6 +184,13 @@ bool comparison_analyzer(const std::string &input, std::size_t &index, Scanner &
 
 bool semi_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    if (input[index] == ';') {
+        Token newToken = {"SEMI", ""};
+        scanner.tokens.push_back(newToken);
+        index++;
+        return true;
+    }
+
     return false;
 }
 
@@ -164,6 +212,18 @@ bool brace_analyzer(const std::string &input, std::size_t &index, Scanner &scann
 
 bool paren_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    if (input[index] == ')') {
+        Token newToken = {"RPAREN", ""};
+        scanner.tokens.push_back(newToken);
+        index++;
+        return true;
+    } else if (input[index] == '(') {
+        Token newToken = {"LPAREN", ""};
+        scanner.tokens.push_back(newToken);
+        index++;
+        return true;
+    }
+
     return false;
 }
 
