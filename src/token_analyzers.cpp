@@ -8,6 +8,31 @@ bool vtype_analyzer(const std::string &input, std::size_t &index, Scanner &scann
 
 bool integer_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    std::size_t int_length = 0;
+    std::size_t cpy_index = index;
+    std::string substr;
+
+    if (input[cpy_index] == '-') {
+        // check if previous element is an ID or an INTEGER
+        // if it is true then - is an OP
+        if (scanner.tokens.size() > 0)
+            if (scanner.tokens.back().name == "ID" || scanner.tokens.back().name == "INTEGER")
+                return false;
+
+        cpy_index++;
+    }
+
+    for (; isdigit(input[cpy_index]); cpy_index++, int_length++);
+
+    if (int_length > 0) {
+        substr = input.substr(index, cpy_index - index);
+        if (substr == "-0")
+            return false;
+        scanner.tokens.push_back({ "INTEGER", substr });
+        index = cpy_index;
+        return true;
+    }
+
     return false;
 }
 
