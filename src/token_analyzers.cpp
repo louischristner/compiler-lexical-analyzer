@@ -126,7 +126,11 @@ bool keyword_analyzer(const std::string &input, std::size_t &index, Scanner &sca
     if (isKeyword(tmpString)) {
         index = tmpIdx;
         index++;
-        Token newToken = {"KEYWORD", tmpString};
+        std::string tmpString2;
+        for (int i = 0; i < tmpString.length(); i++) {
+            tmpString2.push_back((std::toupper(tmpString[i])));
+        }
+        Token newToken = {tmpString2, ""};
         scanner.tokens.push_back(newToken);
     } else
         return false;
