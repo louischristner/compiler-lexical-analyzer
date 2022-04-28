@@ -25,9 +25,9 @@ void generate_error_report(LexicalErrorException &e, const std::string &line, co
     std::ofstream outputFile(filename + ".out");
 
     if (outputFile.is_open()) {
-        outputFile << e.what() << "\n";
-        outputFile << line << "\n";
-
+        outputFile << "ERROR: lexical error at line " << e.getLineIndex() << " column " << e.getColumnIndex() << std::endl;
+        outputFile << line << std::endl;
+        outputFile << std::string(e.getColumnIndex() - 1, ' ') << "^" << std::endl;
         outputFile.close();
     }
 }
@@ -67,13 +67,13 @@ int main(int ac, char **av)
 
         generate_output_file(scanner, av[1]);
 
-    } catch (LexicalErrorException &e) {
-        e.setLineIndex(lineIndex);
-        generate_error_report(e, lines[lineIndex - 1], av[1]);
-    } catch (FileNotFoundException &e) {
-        std::cerr << "File not found: " << e.what() << "\n";
+    } catch (LexicalErrorException &le) {
+        le.setLineIndex(lineIndex);
+        generate_error_report(le, lines[lineIndex - 1], av[1]);
+    } catch (FileNotFoundException &fe) {
+        std::cerr << "File not found: " << fe.what() << std::endl;
     } catch (std::exception &e) {
-        std::cerr << "Something wrong happened\n";
+        std::cerr << "Something wrong happened" << std::endl;
     }
 
     return 0;
