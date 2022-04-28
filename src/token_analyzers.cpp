@@ -133,6 +133,18 @@ bool assignment_analyzer(const std::string &input, std::size_t &index, Scanner &
 
 bool comparison_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    std::string substr;
+    std::string operations[] = { "<", ">", "==", "!=", "<=", ">=" };
+
+    for (const std::string &operation : operations) {
+        substr = input.substr(index, operation.size());
+        if (operation == substr) {
+            scanner.tokens.push_back({ "COMP", operation });
+            index += operation.size();
+            return true;
+        }
+    }
+
     return false;
 }
 
