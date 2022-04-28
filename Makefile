@@ -4,7 +4,8 @@ NAME	=	./lexical_analyzer
 
 SRC		=	main.cpp					\
 			src/lexical_analyzer.cpp	\
-			src/token_analyzers.cpp
+			src/token_analyzers.cpp		\
+			src/utils.cpp
 
 OBJ		=	$(SRC:.cpp=.o)
 
