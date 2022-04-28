@@ -36,7 +36,7 @@ void lexical_analyzer(const std::string &input, Scanner &scanner)
                 break;
 
         if (!tokenFound) {
-            throw LexicalErrorException("Error");
+            throw LexicalErrorException(0, index);
         }
     }
 }

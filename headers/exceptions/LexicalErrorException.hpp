@@ -6,13 +6,30 @@
 
 class LexicalErrorException : public std::exception {
     public:
-        explicit LexicalErrorException(const std::string &msg) noexcept : Msg(msg) {}
+        explicit LexicalErrorException(
+            const std::size_t &lineIndex,
+            const std::size_t charIndex
+        ) noexcept :
+            _lineIndex(lineIndex), _charIndex(charIndex) {}
+
+        void setLineIndex(const std::size_t &index) noexcept {
+            _lineIndex = index;
+        }
+
+        void setCharIndex(const std::size_t &index) noexcept {
+            _charIndex = index;
+        }
+
         const char *what() const noexcept override {
-            return Msg.data();
+            return (
+                std::string("Lexical analysis error found at line ") +
+                std::to_string(_lineIndex) + " column " + std::to_string(_charIndex)
+            ).c_str();
         }
 
     private:
-        std::string Msg;
+        std::size_t _lineIndex = 0;
+        std::size_t _charIndex = 0;
 };
 
 
