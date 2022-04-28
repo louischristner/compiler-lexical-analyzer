@@ -176,5 +176,11 @@ bool paren_analyzer(const std::string &input, std::size_t &index, Scanner &scann
 
 bool comma_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
-    return false;
+    if (input[index] != ',')
+        return false;
+
+    scanner.tokens.push_back({ "COMMA", "" });
+    index += 1;
+
+    return true;
 }
