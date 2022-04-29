@@ -1,0 +1,15 @@
+<ID, func>
+<LPAREN>
+<ID, a>
+<COMMA>
+<ID, b>
+<RPAREN>
+<LBRACE>
+<IF>
+<LPAREN>
+<INTEGER, 10>
+<COMP, >>
+<ID, a>
+<RPAREN>
+<RETURN>
+<RBRACE>

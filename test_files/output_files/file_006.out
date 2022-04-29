@@ -1,0 +1,12 @@
+<ID, f>
+<ASSIGN>
+<ID, a>
+<OP, +>
+<ID, b>
+<OP, ->
+<ID, c>
+<OP, *>
+<ID, d>
+<OP, />
+<ID, e>
+<SEMI>

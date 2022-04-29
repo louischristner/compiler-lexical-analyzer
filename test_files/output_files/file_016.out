@@ -1,0 +1,11 @@
+<VTYPE, int>
+<ID, func>
+<LPAREN>
+<VTYPE, int>
+<ID, a>
+<RPAREN>
+<LBRACE>
+<RETURN>
+<INTEGER, 0>
+<SEMI>
+<RBRACE>
