@@ -38,10 +38,12 @@ bool integer_analyzer(const std::string &input, std::size_t &index, Scanner &sca
         cpy_index++;
     }
 
-    for (; isdigit(input[cpy_index]); cpy_index++, int_length++);
+    // iterate through input until character isn't a digit or end of input
+    for (; isdigit(input[cpy_index]) && cpy_index < input.size(); cpy_index++, int_length++);
 
     if (int_length > 0) {
         substr = input.substr(index, cpy_index - index);
+        // handle specific -0 case
         if (substr == "-0")
             return false;
         scanner.tokens.push_back({ "INTEGER", substr });
@@ -93,13 +95,17 @@ bool identifier_analyzer(const std::string &input, std::size_t &index, Scanner &
     std::size_t cpy_index = index;
     std::string substr;
 
+    // if first character isn't alphabetic then return false
+    // identifier should start with english letter
     if (!isalpha(input[index]))
         return false;
 
-    for (; isalnum(input[cpy_index]); cpy_index++, substr_len++);
+    // iterate through input until character isn't alphanumeric or end of input
+    for (; isalnum(input[cpy_index]) && cpy_index < input.size(); cpy_index++, substr_len++);
 
     if (substr_len > 0) {
         substr = input.substr(index, substr_len);
+        // if result is a keyword then return false
         if (isKeyword(substr))
             return false;
         scanner.tokens.push_back({ "ID", substr });
@@ -135,6 +141,8 @@ bool arithmetic_analyzer(const std::string &input, std::size_t &index, Scanner &
 {
     char operations[] = { '+', '-', '*', '/' };
 
+    // for each operation symbol check if character is equal
+    // if character is equal to an operation symbol then add it to token list
     for (const char &operation : operations) {
         if (operation == input[index]) {
             scanner.tokens.push_back({ "OP", std::string(1, operation) });
@@ -161,13 +169,15 @@ bool assignment_analyzer(const std::string &input, std::size_t &index, Scanner &
 bool comparison_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     std::string substr;
-    std::string operations[] = { "==", "!=", "<=", ">=", "<", ">" };
+    std::string comparisons[] = { "==", "!=", "<=", ">=", "<", ">" };
 
-    for (const std::string &operation : operations) {
-        substr = input.substr(index, operation.size());
-        if (operation == substr) {
-            scanner.tokens.push_back({ "COMP", operation });
-            index += operation.size();
+    // for each comparison symbol check if substring is equal
+    // if substring is equal to a comparison symbol then add it to token list
+    for (const std::string &comparison : comparisons) {
+        substr = input.substr(index, comparison.size());
+        if (comparison == substr) {
+            scanner.tokens.push_back({ "COMP", comparison });
+            index += comparison.size();
             return true;
         }
     }
@@ -192,6 +202,8 @@ bool brace_analyzer(const std::string &input, std::size_t &index, Scanner &scann
     char symbols[] = { '{', '}' };
     const std::string tokenNames[] = { "LBRACE", "RBRACE" };
 
+    // for each symbol check if character is equal
+    // if character is equal to a symbol then add it to token list
     for (std::size_t i = 0; i < 2; i++) {
         if (symbols[i] == input[index]) {
             scanner.tokens.push_back({ tokenNames[i], "" });
@@ -222,6 +234,8 @@ bool paren_analyzer(const std::string &input, std::size_t &index, Scanner &scann
 
 bool comma_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    // if character is not a comma then return false
+    // otherwise add it to the token list
     if (input[index] != ',')
         return false;
 

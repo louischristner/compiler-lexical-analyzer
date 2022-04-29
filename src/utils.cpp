@@ -3,7 +3,13 @@
 
 #include "../headers/lexical_analyzer.hpp"
 
-bool isKeyword(const std::string input)
+/**
+ * @brief Check if input is a keyword
+ *
+ * @param input input string to check
+ * @return true if input is a keyword, false otherwise
+ */
+bool isKeyword(const std::string &input)
 {
     return (
         input == "if" || input == "IF" ||
@@ -13,6 +19,13 @@ bool isKeyword(const std::string input)
     );
 }
 
+/**
+ * @brief Apply transform function to the characters of a string
+ *
+ * @param str string to transform
+ * @param transform_func transform function
+ * @return string result of transformation
+ */
 std::string str_transform(const std::string &str, int (*transform_func)(int v))
 {
     std::string result = str;
