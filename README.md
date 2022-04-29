@@ -6,7 +6,7 @@
 
 ```
 make
-./lexical_analyzer
+./lexical_analyzer input_file
 ```
 
 ### How to launch tests
