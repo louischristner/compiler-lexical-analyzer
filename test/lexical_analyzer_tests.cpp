@@ -144,7 +144,7 @@ Test(lexical_analyzer_test, test_id_a_hashtag_if_lexical_error)
 {
     Scanner scanner;
 
-    cr_assert_throw(lexical_analyzer("a--1", scanner), LexicalErrorException);
+    cr_assert_throw(lexical_analyzer("a#if", scanner), LexicalErrorException);
 }
 
 Test(lexical_analyzer_test, test_main_func_1)

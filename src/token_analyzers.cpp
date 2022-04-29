@@ -62,9 +62,9 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
         idxStringBegin += 1;
         char c;
 
-        for (std::size_t i = idxStringBegin; i < input.length(); i++)
-            if (input[i] == '"')
-                idxStringEnd = i;
+        for (idxStringEnd = idxStringBegin; idxStringEnd < input.length(); idxStringEnd++)
+            if (input[idxStringEnd] == '"')
+                break;
 
 
         for (std::size_t b = idxStringBegin; b < idxStringEnd;) {
