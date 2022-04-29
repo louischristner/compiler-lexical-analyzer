@@ -1,6 +1,14 @@
 #include "../headers/lexical_analyzer.hpp"
 #include "../headers/utils.hpp"
 
+/**
+ * @brief Check if next token is vtype and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is vtype, false otherwise
+ */
 bool vtype_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     std::string tmpString;
@@ -27,6 +35,14 @@ bool vtype_analyzer(const std::string &input, std::size_t &index, Scanner &scann
     return false;
 }
 
+/**
+ * @brief Check if next token is integer and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is integer, false otherwise
+ */
 bool integer_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     std::size_t int_length = 0;
@@ -59,6 +75,14 @@ bool integer_analyzer(const std::string &input, std::size_t &index, Scanner &sca
     return false;
 }
 
+/**
+ * @brief Check if next token is string and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is string, false otherwise
+ */
 bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     // set starting/ending idx of string's value between symbol '"'
@@ -101,6 +125,14 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
     return true;
 }
 
+/**
+ * @brief Check if next token is identifier and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is identifier, false otherwise
+ */
 bool identifier_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     std::size_t substr_len = 0;
@@ -128,6 +160,14 @@ bool identifier_analyzer(const std::string &input, std::size_t &index, Scanner &
     return false;
 }
 
+/**
+ * @brief Check if next token is keyword and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is keyword, false otherwise
+ */
 bool keyword_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     std::string tmpString;
@@ -154,6 +194,14 @@ bool keyword_analyzer(const std::string &input, std::size_t &index, Scanner &sca
     return true;
 }
 
+/**
+ * @brief Check if next token is arithmetic operator and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is arithmetic operator, false otherwise
+ */
 bool arithmetic_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     char operations[] = { '+', '-', '*', '/' };
@@ -171,6 +219,14 @@ bool arithmetic_analyzer(const std::string &input, std::size_t &index, Scanner &
     return false;
 }
 
+/**
+ * @brief Check if next token is assignment operator and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is assignment operator, false otherwise
+ */
 bool assignment_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     // if current character is equal to a '='
@@ -185,6 +241,14 @@ bool assignment_analyzer(const std::string &input, std::size_t &index, Scanner &
     return false;
 }
 
+/**
+ * @brief Check if next token is comparison operator and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is comparison operator, false otherwise
+ */
 bool comparison_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     std::string substr;
@@ -204,6 +268,14 @@ bool comparison_analyzer(const std::string &input, std::size_t &index, Scanner &
     return false;
 }
 
+/**
+ * @brief Check if next token is semicolon and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is semicolon, false otherwise
+ */
 bool semi_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     // if current character is equal to a ';'
@@ -218,6 +290,14 @@ bool semi_analyzer(const std::string &input, std::size_t &index, Scanner &scanne
     return false;
 }
 
+/**
+ * @brief Check if next token is brace and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is brace, false otherwise
+ */
 bool brace_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     char symbols[] = { '{', '}' };
@@ -236,6 +316,14 @@ bool brace_analyzer(const std::string &input, std::size_t &index, Scanner &scann
     return false;
 }
 
+/**
+ * @brief Check if next token is parenthesis and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is parenthesis, false otherwise
+ */
 bool paren_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     // if current character is equal to a '(' or ')'
@@ -255,6 +343,14 @@ bool paren_analyzer(const std::string &input, std::size_t &index, Scanner &scann
     return false;
 }
 
+/**
+ * @brief Check if next token is comma and add it to token list
+ *
+ * @param input string to look for token
+ * @param index position of next token in the input string
+ * @param scanner contains the result of analysis
+ * @return true if next token is comma, false otherwise
+ */
 bool comma_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
     // if character is not a comma then return false

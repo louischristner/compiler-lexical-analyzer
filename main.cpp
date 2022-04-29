@@ -5,6 +5,12 @@
 #include "headers/exceptions/LexicalErrorException.hpp"
 #include "headers/exceptions/FileNotFoundException.hpp"
 
+/**
+ * @brief Generate the output file from scanner
+ *
+ * @param scanner scanner containing the lexical analyze result
+ * @param filename name of the file
+ */
 void generate_output_file(Scanner &scanner, const std::string &filename)
 {
     std::ofstream outputFile(filename + ".out");
@@ -20,6 +26,13 @@ void generate_output_file(Scanner &scanner, const std::string &filename)
     }
 }
 
+/**
+ * @brief Generate an error report based on exception
+ *
+ * @param e lexical error exception
+ * @param line line causing error
+ * @param filename name of the file
+ */
 void generate_error_report(LexicalErrorException &e, const std::string &line, const std::string &filename)
 {
     std::ofstream outputFile(filename + ".out");
@@ -32,6 +45,12 @@ void generate_error_report(LexicalErrorException &e, const std::string &line, co
     }
 }
 
+/**
+ * @brief Get the input content object
+ *
+ * @param filename name of the file
+ * @return vector<string> lines of the file
+ */
 std::vector<std::string> get_input_content(const std::string &filename)
 {
     std::string line;
