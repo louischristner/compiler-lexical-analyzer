@@ -7,9 +7,14 @@ bool vtype_analyzer(const std::string &input, std::size_t &index, Scanner &scann
     std::string vtype[] = {"int", "INT", "char", "CHAR"};
     std::size_t tmpIdx = index;
 
+    // Parsing until there is no more alpha characters
+    // Pushing alpha characters into a new string
     for (; tmpIdx < input.length() && isalpha(input[tmpIdx]); tmpIdx++)
         tmpString.push_back(input[tmpIdx]);
 
+    // Once we get our new string
+    // We will compare to the variable vtype containing all
+    // of our VTYPE to see if it matched
     for (int i = 0; i < 4; i++) {
         if (vtype[i] == tmpString) {
             index = tmpIdx;
@@ -58,15 +63,19 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
     std::size_t idxStringBegin(index);
     std::size_t idxStringEnd(0);
 
+    // If the char is a double quote
     if (input.at(std::size_t(idxStringBegin)) == '"') {
         idxStringBegin += 1;
         char c;
 
+        // Finding the index of the second quote
         for (std::size_t i = idxStringBegin; i < input.length(); i++)
             if (input[i] == '"')
                 idxStringEnd = i;
 
-
+        // Once we have the index of the second quote
+        // We will check if between these two quote there are
+        // any combinations of digits, english letters or blanks
         for (std::size_t b = idxStringBegin; b < idxStringEnd;) {
             c = input[b];
             if (c == ' ' || isdigit(c) || isalpha(c))
@@ -79,6 +88,9 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
     }
 
     // Incrementing index in order to parse for the next symbol in the main loop
+    // as idxStringEnd corresponds to the index of the second double quote
+    // we don't want the for loop in the lexical_analysis.cpp to be stuck on the double quote when
+    // going back to the loop.
     index = idxStringEnd + 1;
 
     Token newToken = {"STRING", std::string(input.begin() + idxStringBegin, input.begin() + idxStringEnd)};
@@ -115,12 +127,17 @@ bool keyword_analyzer(const std::string &input, std::size_t &index, Scanner &sca
     std::string tmpString;
     std::size_t tmpIdx = index;
 
+    // Checking if the current char is a alpha character
     if (isalpha(input[tmpIdx]))
+        // Getting every alpha character and pushing into a new string
         while (isalpha(input[tmpIdx]) && tmpIdx < input.length()) {
             tmpString.push_back(input[tmpIdx]);
             tmpIdx++;
         }
 
+    // Checking if the new string created
+    // from the alpha characters corresponds
+    // to a character
     if (isKeyword(tmpString)) {
         index = tmpIdx;
         Token newToken = {str_transform(tmpString, std::toupper), ""};
@@ -148,6 +165,8 @@ bool arithmetic_analyzer(const std::string &input, std::size_t &index, Scanner &
 
 bool assignment_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    // if current character is equal to a '='
+    // then it's a token of type assign
     if (input[index] == '=') {
         Token newToken = {"ASSIGN", ""};
         scanner.tokens.push_back(newToken);
@@ -177,6 +196,8 @@ bool comparison_analyzer(const std::string &input, std::size_t &index, Scanner &
 
 bool semi_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    // if current character is equal to a ';'
+    // then it's a token of type assign
     if (input[index] == ';') {
         Token newToken = {"SEMI", ""};
         scanner.tokens.push_back(newToken);
@@ -205,6 +226,8 @@ bool brace_analyzer(const std::string &input, std::size_t &index, Scanner &scann
 
 bool paren_analyzer(const std::string &input, std::size_t &index, Scanner &scanner)
 {
+    // if current character is equal to a '(' or ')'
+    // then it's a token of type assign
     if (input[index] == ')') {
         Token newToken = {"RPAREN", ""};
         scanner.tokens.push_back(newToken);
