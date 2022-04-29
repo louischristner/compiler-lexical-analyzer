@@ -1,5 +1,7 @@
 CC		=	g++
 
+CXXFLAGS	=	-std=c++11
+
 NAME	=	./lexical_analyzer
 
 SRC		=	main.cpp					\
@@ -12,7 +14,7 @@ OBJ		=	$(SRC:.cpp=.o)
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	$(CC) -o $(NAME) $(OBJ)
+	$(CC) $(CXXFLAGS) -o $(NAME) $(OBJ)
 
 tests:
 	make -C test
