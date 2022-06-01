@@ -84,7 +84,9 @@ int main(int ac, char **av)
         for (std::size_t index = 0; index < lines.size(); index++, lineIndex++)
             lexical_analyzer(lines[index], scanner);
 
-        generate_output_file(scanner, av[1]);
+        // generate_output_file(scanner, av[1]);
+
+
 
     } catch (LexicalErrorException &le) {
         le.setLineIndex(lineIndex);
