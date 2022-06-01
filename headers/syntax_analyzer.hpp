@@ -1,13 +1,13 @@
 #ifndef SYNTAX_ANALYZER_HPP_
 #define SYNTAX_ANALYZER_HPP_
 
-#include <vector>
-#include <string>
+#include "lexical_analyzer.hpp"
 #include <map>
 
 enum ACTION {
     SWAP,
     REPLACE,
+    GOTO,
     ACC
 };
 
@@ -29,6 +29,6 @@ struct syntaxAnalyzer {
     std::vector<int> stateStack;
 };
 
-
+void syntax_analyzer(Scanner scanner);
 
 #endif /* !SYNTAX_ANALYZER_HPP_ */
