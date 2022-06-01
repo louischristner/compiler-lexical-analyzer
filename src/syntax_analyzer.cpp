@@ -2,7 +2,6 @@
 #include "../headers/lexical_analyzer.hpp"
 
 void initialize(syntaxAnalyzer &syntaxAnalyzer) {
-    syntaxAnalyzer.slrGrammar.resize(26);
     grammarElement tmpArray[] = {
         {{"VDECL", "CODE"}, "CODE"},
         {{"FDECL", "CODE"}, "CODE"},
@@ -32,11 +31,8 @@ void initialize(syntaxAnalyzer &syntaxAnalyzer) {
         {{"return", "FACTOR", "semi"}, "RETURN"},
     };
 
-    std::string indexString[] = {
-        "vtype","id","semi","lparen","rparen","lbrace","rbrace","comma","assign","if","else","while","literal","addsub","multdiv","num","comp","return","$","CODE","VDECL","FDECL","ARG","MOREARGS","BLOCK","STMT","RHS","EXPR","TERM","FACTOR","COND","RETURN"
-    };
+    syntaxAnalyzer.slrGrammar.resize(26);
 
-    
     for (int i = 0; i < 26; i++) {
         syntaxAnalyzer.slrGrammar[i] = tmpArray[i];
     }
@@ -252,6 +248,6 @@ void initialize(syntaxAnalyzer &syntaxAnalyzer) {
 
 void syntax_analyzer(Scanner scanner) {
     syntaxAnalyzer syntaxAnalyzer;
-    
+
     initialize(syntaxAnalyzer);
 }

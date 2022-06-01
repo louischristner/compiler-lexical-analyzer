@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "headers/syntax_analyzer.hpp"
 #include "headers/lexical_analyzer.hpp"
 #include "headers/exceptions/LexicalErrorException.hpp"
 #include "headers/exceptions/FileNotFoundException.hpp"
@@ -85,7 +86,7 @@ int main(int ac, char **av)
             lexical_analyzer(lines[index], scanner);
 
         // generate_output_file(scanner, av[1]);
-
+        syntax_analyzer(scanner);
 
 
     } catch (LexicalErrorException &le) {
