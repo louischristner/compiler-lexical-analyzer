@@ -2,7 +2,7 @@ CC		=	g++
 
 CXXFLAGS	=	-std=c++11
 
-NAME	=	./lexical_analyzer
+NAME	=	./analyzer
 
 SRC		=	main.cpp					\
 			src/lexical_analyzer.cpp	\
