@@ -1,16 +1,16 @@
-#ifndef LEXICALERROREXCEPTION_HPP_
-#define LEXICALERROREXCEPTION_HPP_
+#ifndef SYNTAXERROREXCEPTION_HPP_
+#define SYNTAXERROREXCEPTION_HPP_
 
 #include <string>
 #include <exception>
 
-class LexicalErrorException : public std::exception {
+class SyntaxErrorException : public std::exception {
     public:
-        explicit LexicalErrorException(
+        explicit SyntaxErrorException(
             const std::size_t &lineIndex,
             const std::size_t &columnIndex
         ) noexcept :
-            _lineIndex(lineIndex), _columnIndex(columnIndex), _exceptionName("lexical") {}
+            _lineIndex(lineIndex), _columnIndex(columnIndex), _exceptionName("syntax") {}
 
         void setLineIndex(const std::size_t &index) noexcept {
             _lineIndex = index;
@@ -39,4 +39,4 @@ class LexicalErrorException : public std::exception {
 };
 
 
-#endif /* !LEXICALERROREXCEPTION_HPP_ */
+#endif /* !SYNTAXERROREXCEPTION_HPP_ */

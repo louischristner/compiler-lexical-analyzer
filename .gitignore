@@ -3,4 +3,5 @@
 *.o
 
 tests
+analyzer
 lexical_analyzer

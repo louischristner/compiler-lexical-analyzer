@@ -2,6 +2,8 @@
 #define SYNTAX_ANALYZER_HPP_
 
 #include "lexical_analyzer.hpp"
+#include "exceptions/SyntaxErrorException.hpp"
+#include <algorithm>
 #include <map>
 
 enum ACTION {

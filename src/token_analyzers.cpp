@@ -26,7 +26,7 @@ bool vtype_analyzer(const std::string &input, std::size_t &index, Scanner &scann
     for (int i = 0; i < 4; i++) {
         if (vtype[i] == tmpString) {
             index = tmpIdx;
-            Token newToken = {"VTYPE", str_transform(vtype[i], std::tolower)};
+            Token newToken = {"VTYPE", str_transform(vtype[i], std::tolower), index, scanner.lineIndex};
             scanner.tokens.push_back(newToken);
             return true;
         }
@@ -53,7 +53,7 @@ bool integer_analyzer(const std::string &input, std::size_t &index, Scanner &sca
         // check if previous element is an ID or an INTEGER
         // if it is true then - is an OP
         if (scanner.tokens.size() > 0)
-            if (scanner.tokens.back().name == "ID" || scanner.tokens.back().name == "INTEGER")
+            if (scanner.tokens.back().name == "ID" || scanner.tokens.back().name == "NUM")
                 return false;
 
         cpy_index++;
@@ -67,7 +67,7 @@ bool integer_analyzer(const std::string &input, std::size_t &index, Scanner &sca
         // handle specific -0 case
         if (substr == "-0")
             return false;
-        scanner.tokens.push_back({ "INTEGER", substr });
+        scanner.tokens.push_back({ "NUM", substr, index, scanner.lineIndex });
         index = cpy_index;
         return true;
     }
@@ -119,7 +119,7 @@ bool string_analyzer(const std::string &input, std::size_t &index, Scanner &scan
     // going back to the loop.
     index = idxStringEnd + 1;
 
-    Token newToken = {"STRING", std::string(input.begin() + idxStringBegin, input.begin() + idxStringEnd)};
+    Token newToken = {"LITERAL", std::string(input.begin() + idxStringBegin, input.begin() + idxStringEnd), index, scanner.lineIndex};
     scanner.tokens.push_back(newToken);
 
     return true;
@@ -152,7 +152,7 @@ bool identifier_analyzer(const std::string &input, std::size_t &index, Scanner &
         // if result is a keyword then return false
         if (isKeyword(substr))
             return false;
-        scanner.tokens.push_back({ "ID", substr });
+        scanner.tokens.push_back({ "ID", substr, index, scanner.lineIndex });
         index = cpy_index;
         return true;
     }
@@ -186,7 +186,7 @@ bool keyword_analyzer(const std::string &input, std::size_t &index, Scanner &sca
     // to a character
     if (isKeyword(tmpString)) {
         index = tmpIdx;
-        Token newToken = {str_transform(tmpString, std::toupper), ""};
+        Token newToken = {str_transform(tmpString, std::toupper), "", index, scanner.lineIndex};
         scanner.tokens.push_back(newToken);
     } else
         return false;
@@ -210,7 +210,11 @@ bool arithmetic_analyzer(const std::string &input, std::size_t &index, Scanner &
     // if character is equal to an operation symbol then add it to token list
     for (const char &operation : operations) {
         if (operation == input[index]) {
-            scanner.tokens.push_back({ "OP", std::string(1, operation) });
+            scanner.tokens.push_back({
+                (input[index] == '+' || input[index] == '-')
+                    ? "ADDSUB" : "MULTDIV",
+                std::string(1, operation), index, scanner.lineIndex
+            });
             index += 1;
             return true;
         }
@@ -232,7 +236,7 @@ bool assignment_analyzer(const std::string &input, std::size_t &index, Scanner &
     // if current character is equal to a '='
     // then it's a token of type assign
     if (input[index] == '=') {
-        Token newToken = {"ASSIGN", ""};
+        Token newToken = {"ASSIGN", "", index, scanner.lineIndex};
         scanner.tokens.push_back(newToken);
         index++;
         return true;
@@ -259,7 +263,7 @@ bool comparison_analyzer(const std::string &input, std::size_t &index, Scanner &
     for (const std::string &comparison : comparisons) {
         substr = input.substr(index, comparison.size());
         if (comparison == substr) {
-            scanner.tokens.push_back({ "COMP", comparison });
+            scanner.tokens.push_back({ "COMP", comparison, index, scanner.lineIndex });
             index += comparison.size();
             return true;
         }
@@ -281,7 +285,7 @@ bool semi_analyzer(const std::string &input, std::size_t &index, Scanner &scanne
     // if current character is equal to a ';'
     // then it's a token of type assign
     if (input[index] == ';') {
-        Token newToken = {"SEMI", ""};
+        Token newToken = {"SEMI", "", index, scanner.lineIndex};
         scanner.tokens.push_back(newToken);
         index++;
         return true;
@@ -307,7 +311,7 @@ bool brace_analyzer(const std::string &input, std::size_t &index, Scanner &scann
     // if character is equal to a symbol then add it to token list
     for (std::size_t i = 0; i < 2; i++) {
         if (symbols[i] == input[index]) {
-            scanner.tokens.push_back({ tokenNames[i], "" });
+            scanner.tokens.push_back({ tokenNames[i], "", index, scanner.lineIndex });
             index += 1;
             return true;
         }
@@ -329,12 +333,12 @@ bool paren_analyzer(const std::string &input, std::size_t &index, Scanner &scann
     // if current character is equal to a '(' or ')'
     // then it's a token of type assign
     if (input[index] == ')') {
-        Token newToken = {"RPAREN", ""};
+        Token newToken = {"RPAREN", "", index, scanner.lineIndex};
         scanner.tokens.push_back(newToken);
         index++;
         return true;
     } else if (input[index] == '(') {
-        Token newToken = {"LPAREN", ""};
+        Token newToken = {"LPAREN", "", index, scanner.lineIndex};
         scanner.tokens.push_back(newToken);
         index++;
         return true;
@@ -358,7 +362,7 @@ bool comma_analyzer(const std::string &input, std::size_t &index, Scanner &scann
     if (input[index] != ',')
         return false;
 
-    scanner.tokens.push_back({ "COMMA", "" });
+    scanner.tokens.push_back({ "COMMA", "", index, scanner.lineIndex });
     index += 1;
 
     return true;

@@ -8,10 +8,14 @@
 struct Token {
     std::string name;
     std::string value;
+    std::size_t columnIndex;
+    std::size_t lineIndex;
 };
 
 struct Scanner {
     std::vector<Token> tokens;
+    std::size_t lastColumnIndex;
+    std::size_t lineIndex;
 };
 
 void lexical_analyzer(const std::string &input, Scanner &);
