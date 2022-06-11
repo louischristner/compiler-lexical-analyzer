@@ -1,1 +1,6 @@
-char CHAR int INT
+int func() {
+    char fd;
+    int sdf;
+
+    return 0;
+}

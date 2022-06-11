@@ -1,4 +1,15 @@
-<VTYPE, char>
-<VTYPE, char>
 <VTYPE, int>
+<ID, func>
+<LPAREN>
+<RPAREN>
+<LBRACE>
+<VTYPE, char>
+<ID, fd>
+<SEMI>
 <VTYPE, int>
+<ID, sdf>
+<SEMI>
+<RETURN>
+<NUM, 0>
+<SEMI>
+<RBRACE>

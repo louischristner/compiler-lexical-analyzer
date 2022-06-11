@@ -1,2 +1,23 @@
-<STRING, Hello world>
-<STRING, My student id is 12345678>
+<VTYPE, int>
+<ID, func>
+<LPAREN>
+<RPAREN>
+<LBRACE>
+<VTYPE, char>
+<ID, hellow>
+<SEMI>
+<ID, hellow>
+<ASSIGN>
+<LITERAL, Hello world>
+<SEMI>
+<VTYPE, char>
+<ID, teststr>
+<SEMI>
+<ID, teststr>
+<ASSIGN>
+<LITERAL, My student id is 12345678>
+<SEMI>
+<RETURN>
+<NUM, 2>
+<SEMI>
+<RBRACE>

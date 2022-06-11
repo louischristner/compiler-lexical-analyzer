@@ -1,12 +1,97 @@
+<VTYPE, char>
+<ID, func>
+<LPAREN>
+<RPAREN>
+<LBRACE>
+<IF>
+<LPAREN>
+<ID, a>
+<COMP, <=>
+<ID, b>
+<RPAREN>
+<LBRACE>
+<IF>
+<LPAREN>
+<ID, a>
+<COMP, !=>
+<ID, c>
+<RPAREN>
+<LBRACE>
+<IF>
+<LPAREN>
+<ID, b>
+<COMP, >=>
+<ID, f>
+<RPAREN>
+<LBRACE>
+<IF>
+<LPAREN>
+<ID, g>
+<COMP, >>
+<ID, d>
+<RPAREN>
+<LBRACE>
+<IF>
+<LPAREN>
+<ID, r>
+<COMP, <>
+<ID, d>
+<RPAREN>
+<LBRACE>
+<ID, a>
+<ASSIGN>
+<NUM, 3274328>
+<MULTDIV, />
+<NUM, 3928>
+<MULTDIV, *>
+<NUM, 2>
+<ADDSUB, +>
+<NUM, 1>
+<SEMI>
+<RBRACE>
+<ELSE>
+<LBRACE>
 <ID, f>
 <ASSIGN>
-<ID, a>
-<OP, +>
-<ID, b>
-<OP, ->
-<ID, c>
-<OP, *>
 <ID, d>
-<OP, />
-<ID, e>
 <SEMI>
+<RBRACE>
+<RBRACE>
+<ELSE>
+<LBRACE>
+<ID, g>
+<ASSIGN>
+<NUM, 239>
+<MULTDIV, *>
+<NUM, 2>
+<SEMI>
+<RBRACE>
+<RBRACE>
+<ELSE>
+<LBRACE>
+<VTYPE, int>
+<ID, o>
+<SEMI>
+<RBRACE>
+<RBRACE>
+<ELSE>
+<LBRACE>
+<ID, i>
+<ASSIGN>
+<ID, i>
+<MULTDIV, *>
+<NUM, 2>
+<SEMI>
+<RBRACE>
+<RBRACE>
+<ELSE>
+<LBRACE>
+<ID, a>
+<ASSIGN>
+<NUM, 2>
+<SEMI>
+<RBRACE>
+<RETURN>
+<NUM, 1>
+<SEMI>
+<RBRACE>

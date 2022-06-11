@@ -1,15 +1,16 @@
+<VTYPE, int>
 <ID, func>
 <LPAREN>
-<ID, a>
-<COMMA>
-<ID, b>
 <RPAREN>
 <LBRACE>
-<IF>
-<LPAREN>
-<INTEGER, 10>
-<COMP, >>
+<VTYPE, int>
 <ID, a>
-<RPAREN>
+<SEMI>
+<ID, a>
+<ASSIGN>
+<NUM, 0>
+<SEMI>
 <RETURN>
+<ID, a>
+<SEMI>
 <RBRACE>

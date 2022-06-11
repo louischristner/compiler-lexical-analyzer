@@ -1,1 +1,14 @@
-i j k abc ab123 func1
+int func() {
+    if (a == b) {
+        char a;
+    } else {
+        while (f >= e) {
+            b = 5;
+        }
+    }
+
+    while (b == c) {
+        a = 5 * b;
+    }
+    return 0;
+}

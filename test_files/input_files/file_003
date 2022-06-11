@@ -1,1 +1,8 @@
-"Hello world" "My student id is 12345678"
+int func() {
+    char hellow;
+    hellow = "Hello world";
+    char teststr;
+    teststr = "My student id is 12345678";
+
+    return 2;
+}

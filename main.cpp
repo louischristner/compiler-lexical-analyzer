@@ -90,13 +90,13 @@ int main(int ac, char **av)
 
         syntax_analyzer(scanner);
         generate_output_file(scanner, av[1]);
+        std::cout << "syntax_analyzer: CODE STRUCTURE IS VALID" << std::endl;
 
 
     } catch (LexicalErrorException &le) {
         le.setLineIndex(scanner.lineIndex);
         generate_error_report<LexicalErrorException>(le, lines[scanner.lineIndex - 1], av[1]);
     } catch (SyntaxErrorException &se) {
-        std::cout << se.getExceptionName() << std::endl;
         se.setColumnIndex(se.getColumnIndex() + 1);
         generate_error_report<SyntaxErrorException>(se, lines[se.getLineIndex() - 2], av[1]);
     } catch (FileNotFoundException &fe) {

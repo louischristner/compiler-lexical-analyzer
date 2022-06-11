@@ -1,6 +1,49 @@
-<ID, i>
-<ID, j>
-<ID, k>
-<ID, abc>
-<ID, ab123>
-<ID, func1>
+<VTYPE, int>
+<ID, func>
+<LPAREN>
+<RPAREN>
+<LBRACE>
+<IF>
+<LPAREN>
+<ID, a>
+<COMP, ==>
+<ID, b>
+<RPAREN>
+<LBRACE>
+<VTYPE, char>
+<ID, a>
+<SEMI>
+<RBRACE>
+<ELSE>
+<LBRACE>
+<WHILE>
+<LPAREN>
+<ID, f>
+<COMP, >=>
+<ID, e>
+<RPAREN>
+<LBRACE>
+<ID, b>
+<ASSIGN>
+<NUM, 5>
+<SEMI>
+<RBRACE>
+<RBRACE>
+<WHILE>
+<LPAREN>
+<ID, b>
+<COMP, ==>
+<ID, c>
+<RPAREN>
+<LBRACE>
+<ID, a>
+<ASSIGN>
+<NUM, 5>
+<MULTDIV, *>
+<ID, b>
+<SEMI>
+<RBRACE>
+<RETURN>
+<NUM, 0>
+<SEMI>
+<RBRACE>

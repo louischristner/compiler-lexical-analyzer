@@ -1,1 +1,6 @@
-if ELSE return WHILE while else RETURN IF
+int func() {
+    int f;
+    f = a + b - c * d / e;
+
+    return f;
+}

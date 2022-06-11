@@ -1,13 +1,33 @@
+<VTYPE, int>
+<ID, func>
+<LPAREN>
+<VTYPE, int>
 <ID, a>
-<COMP, <=>
+<COMMA>
+<VTYPE, char>
 <ID, b>
-<COMP, >=>
-<ID, c>
-<COMP, ==>
-<ID, d>
-<COMP, !=>
-<ID, e>
+<RPAREN>
+<LBRACE>
+<IF>
+<LPAREN>
+<NUM, 10>
 <COMP, >>
-<ID, f>
-<COMP, <>
-<ID, g>
+<ID, a>
+<RPAREN>
+<LBRACE>
+<ID, a>
+<ASSIGN>
+<NUM, 20>
+<SEMI>
+<RBRACE>
+<ELSE>
+<LBRACE>
+<ID, a>
+<ASSIGN>
+<NUM, 10>
+<SEMI>
+<RBRACE>
+<RETURN>
+<NUM, 1>
+<SEMI>
+<RBRACE>

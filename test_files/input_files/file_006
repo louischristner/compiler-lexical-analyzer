@@ -1,1 +1,25 @@
-f = a + b - c * d / e;
+char func() {
+    if (a <= b) {
+        if (a != c) {
+            if (b >= f) {
+                if (g > d) {
+                    if (r < d) {
+                        a = 3274328 / 3928 * 2 + 1;
+                    } else {
+                        f = d;
+                    }
+                } else {
+                    g = 239 * 2;
+                }
+            } else {
+                int o;
+            }
+        } else {
+            i = i * 2;
+        }
+    } else {
+        a = 2;
+    }
+
+    return 1;
+}

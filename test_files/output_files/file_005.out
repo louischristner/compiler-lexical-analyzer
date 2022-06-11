@@ -1,8 +1,24 @@
-<IF>
-<ELSE>
+<VTYPE, int>
+<ID, func>
+<LPAREN>
+<RPAREN>
+<LBRACE>
+<VTYPE, int>
+<ID, f>
+<SEMI>
+<ID, f>
+<ASSIGN>
+<ID, a>
+<ADDSUB, +>
+<ID, b>
+<ADDSUB, ->
+<ID, c>
+<MULTDIV, *>
+<ID, d>
+<MULTDIV, />
+<ID, e>
+<SEMI>
 <RETURN>
-<WHILE>
-<WHILE>
-<ELSE>
-<RETURN>
-<IF>
+<ID, f>
+<SEMI>
+<RBRACE>

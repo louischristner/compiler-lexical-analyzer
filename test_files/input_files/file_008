@@ -1,3 +1,6 @@
-func(a, b) {
-    if (10 > a) return
+int func() {
+    int a;
+    a = 0;
+
+    return a;
 }

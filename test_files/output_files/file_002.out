@@ -1,5 +1,25 @@
-<INTEGER, 0>
-<COMMA>
-<INTEGER, -1>
-<INTEGER, 10>
-<INTEGER, 999>
+<VTYPE, int>
+<ID, func>
+<LPAREN>
+<RPAREN>
+<LBRACE>
+<ID, a>
+<ASSIGN>
+<NUM, 0>
+<SEMI>
+<ID, b>
+<ASSIGN>
+<NUM, -1>
+<SEMI>
+<ID, c>
+<ASSIGN>
+<NUM, 10>
+<SEMI>
+<ID, d>
+<ASSIGN>
+<NUM, 999>
+<SEMI>
+<RETURN>
+<NUM, 0>
+<SEMI>
+<RBRACE>

@@ -1,1 +1,8 @@
-a <= b >= c == d != e > f < g
+int func(int a, char b) {
+    if (10 > a) {
+        a = 20;
+    } else {
+        a = 10;
+    }
+    return 1;
+}
