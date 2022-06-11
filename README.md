@@ -1,4 +1,4 @@
-# lexical analyzer
+# lexical analyzer & syntax analyzer
 
 ## How to use
 
@@ -6,7 +6,7 @@
 
 ```
 make
-./lexical_analyzer input_file
+./analyzer input_file
 ```
 
 ### How to launch tests

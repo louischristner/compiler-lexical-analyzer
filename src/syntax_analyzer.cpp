@@ -1,7 +1,15 @@
+#include "../headers/utils.hpp"
 #include "../headers/syntax_analyzer.hpp"
 #include "../headers/lexical_analyzer.hpp"
 
-void initialize(syntaxAnalyzer &syntaxAnalyzer) {
+/**
+ * @brief This function initialize the syntaxAnalyzer struct LR parsing table and SLR grammar
+ *
+ * @param syntaxAnalyzer the syntaxAnalyzer struct containing LR parsing table and SLR grammar
+ */
+void initialize(syntaxAnalyzer &syntaxAnalyzer)
+{
+    // This array defines the SLR grammar
     grammarElement tmpArray[] = {
         {{"CODE"}, "CODE'"},
         {{"VDECL", "CODE"}, "CODE"},
@@ -32,12 +40,16 @@ void initialize(syntaxAnalyzer &syntaxAnalyzer) {
         {{"return", "FACTOR", "semi"}, "RETURN"},
     };
 
+    // This line resizes the SLR grammar vector of the syntaxAnalyzer struct
     syntaxAnalyzer.slrGrammar.resize(27);
 
+    // This loop sets the SLR grammar element in the SLR grammar vector of the syntaxAnalyzer struct
     for (int i = 0; i < 27; i++) {
         syntaxAnalyzer.slrGrammar[i] = tmpArray[i];
     }
 
+    // Here we set the LR parsing table elements
+    // Action type can be ACTION::SWAP, ACTION::REPLACE, ACTION::GOTO, ACTION::SWAP
     syntaxAnalyzer.lrTable[0]["vtype"] = actionState{ ACTION::SWAP, 4 };
     syntaxAnalyzer.lrTable[0]["$"] = actionState{ ACTION::REPLACE, 3 };
     syntaxAnalyzer.lrTable[0]["CODE"] = actionState{ ACTION::GOTO, 1 };
@@ -250,56 +262,75 @@ void initialize(syntaxAnalyzer &syntaxAnalyzer) {
     syntaxAnalyzer.lrTable[68]["if"] = actionState{ ACTION::REPLACE, 14 };
     syntaxAnalyzer.lrTable[68]["while"] = actionState{ ACTION::REPLACE, 14 };
     syntaxAnalyzer.lrTable[68]["return"] = actionState{ ACTION::REPLACE, 14 };
-
 }
 
-std::string toLowerCase(std::string str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-    return str;
-}
-
+/**
+ * @brief This function is responsible for the syntax analysis
+ *
+ * @param scanner the result of the lexical analyzer
+ */
 void syntax_analyzer(Scanner scanner)
 {
     syntaxAnalyzer syntaxAnalyzer;
 
+    // syntaxAnalyzer struct is initialized in this function
     initialize(syntaxAnalyzer);
+
+    // $ symbol is added to the scanned tokens and state 0 is pushed in the state stack
     scanner.tokens.push_back({ "$", "", scanner.lastColumnIndex, scanner.lineIndex });
     syntaxAnalyzer.stateStack.push_back(0);
 
+    // Main parsing loop
     while (true) {
-        std::string tokenName = toLowerCase(scanner.tokens[0].name);
+        // Get first token name and last state from state stack
+        std::string tokenName = str_transform(scanner.tokens[0].name, std::tolower);
         int currentState = syntaxAnalyzer.stateStack.back();
         actionState currentAction = {};
-        int actionStateIndex = 0;
 
+        // If LR parsing table element does not exist then SyntaxErrorException is thrown
         if (syntaxAnalyzer.lrTable[currentState].find(tokenName) == syntaxAnalyzer.lrTable[currentState].end())
             throw SyntaxErrorException(scanner.tokens[0].lineIndex, scanner.tokens[0].columnIndex);
 
+        // Get LR parsing table action
         currentAction = syntaxAnalyzer.lrTable[currentState][tokenName];
-        actionStateIndex = currentAction.index;
 
+        // Checking action type
         switch (currentAction.actionType) {
+            // If action is ACTION::REPLACE
             case ACTION::REPLACE:
             {
-                grammarElement element = syntaxAnalyzer.slrGrammar[actionStateIndex];
+                // Get appropriate SLR grammar element from action index
+                grammarElement element = syntaxAnalyzer.slrGrammar[currentAction.index];
 
+                // Check if first SLR grammar list element is not ε ("" in our case)
                 if (element.listEl[0] != "") {
+                    // Remove last elements from state stack and non-terminal/terminal stack
+                    // for each element in SLR grammar list element
                     for (int i = 0; i < element.listEl.size(); i++) {
                         syntaxAnalyzer.nttStack.pop_back();
                         syntaxAnalyzer.stateStack.pop_back();
                     }
                 }
+
+                // Add SLR grammer element non-terminal to non-terminal/terminal stack
+                // Then get new current state from last state stack element
+                // Then find GOTO index in LR parsing table and add it to state stack
                 syntaxAnalyzer.nttStack.push_back(element.type);
                 currentState = syntaxAnalyzer.stateStack.back();
                 syntaxAnalyzer.stateStack.push_back(syntaxAnalyzer.lrTable[currentState][element.type].index);
                 break;
             }
+            // If action is ACTION::SWAP
             case ACTION::SWAP:
-                syntaxAnalyzer.stateStack.push_back(actionStateIndex);
+                // Add action index in state stack
+                // Then add token name to non-terminal/terminal stack
+                // Then remove first token of the token list
+                syntaxAnalyzer.stateStack.push_back(currentAction.index);
                 syntaxAnalyzer.nttStack.push_back(tokenName);
                 scanner.tokens.erase(scanner.tokens.begin());
                 break;
+            // ACTION::GOTO cannot occured as it is handled in ACTION::REPLACE
+            // If action is ACTION::ACC then the program structure is valid
             case ACTION::GOTO:
             case ACTION::ACC:
             default:
